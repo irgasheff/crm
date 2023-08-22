@@ -60,4 +60,28 @@ public sealed class Client
             _gender = value;
         }
     }
+
+    private readonly string _phone;
+
+    public string Phone
+    {
+        get => _phone;
+        init => _phone = value is { Length: 0 } ? _phone = value : throw new ArgumentOutOfRangeException();
+    }
+
+    private readonly string _email;
+
+    public string Email
+    {
+        get => _email;
+        init => _email = value is { Length: 0 } ? _email = value : throw new ArgumentOutOfRangeException();
+    }
+
+    private readonly string _password;
+
+    public string Password
+    {
+        get => _password;
+        init => _password = value is { Length: 0 } ? _password = value : throw new ArgumentOutOfRangeException();
+    }
 }

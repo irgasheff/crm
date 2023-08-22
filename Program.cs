@@ -37,6 +37,15 @@ void CreateClient()
     Console.WriteLine("Введите пол клиента (male или female) :");
     string gender = Console.ReadLine();
 
+    Console.WriteLine("Введите номер телефона клиента :");
+    string phone = Console.ReadLine();
+
+    Console.WriteLine("Введите электронную почту клиента :");
+    string email = Console.ReadLine();
+
+    Console.WriteLine("Введите пароль для клиента :");
+    string password = Console.ReadLine();
+
     ClientDto clientDto = new ClientDto()
     {
         Name = name,
@@ -44,12 +53,17 @@ void CreateClient()
         Patronymic = patronymic,
         Age = age,
         PassportNumber = passportNumber,
-        Gender = gender
+        Gender = gender,
+        Phone = phone,
+        Email = email,
+        Password = password
     };
 
     if (!ValidateClient(clientDto)) return;
 
-    ClientService.CreateClient(clientDto);
+    ClientService clientService = new ClientService();
+
+    clientService.CreateClient(clientDto);
 }
 
 void CreateOrder()
@@ -102,6 +116,15 @@ bool ValidateClient(ClientDto clientDto)
 
     if (clientDto.Gender != "male" && clientDto.Gender != "female")
         errors.Add("Please input correct value for gender field (male, female)!");
+    
+    if (clientDto.Phone is { Length: 0 })
+        errors.Add("Phone field is required");
+
+    if (clientDto.Email is { Length: 0 })
+        errors.Add("Email field is required");
+
+    if (clientDto.Password is { Length: 0 })
+        errors.Add("Password field is required");
 
     if (errors is not { Count: > 0 }) return true;
     foreach (string error in errors)

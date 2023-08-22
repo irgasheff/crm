@@ -6,7 +6,9 @@ namespace crmProject.Services;
 
 public class ClientService
 {
-    public static Client CreateClient(ClientDto clientDto)
+    private readonly List<Client> _clients;
+
+    public void CreateClient(ClientDto clientDto)
     {
         Gender gender = clientDto.Gender switch
         {
@@ -15,14 +17,19 @@ public class ClientService
             _ => Gender.Male
         };
 
-        return new Client()
+        Client client = new Client()
         {
             Name = clientDto.Name,
             Surname = clientDto.Surname,
             Patronymic = clientDto.Patronymic,
             Age = ushort.Parse(clientDto.Age),
             PassportNumber = clientDto.PassportNumber,
-            Gender = gender
+            Gender = gender,
+            Phone = clientDto.Phone,
+            Email = clientDto.Email,
+            Password = clientDto.Password
         };
+
+        _clients.Add(client);
     }
 }
