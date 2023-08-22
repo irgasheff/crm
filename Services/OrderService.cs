@@ -18,7 +18,6 @@ public class OrderService
 
         return new Order()
         {
-            Id = orderDto.Id,
             Description = orderDto.Description,
             Price = double.Parse(orderDto.Price),
             Date = orderDto.Date,

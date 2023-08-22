@@ -1,13 +1,11 @@
-using crmProject.Enums;
-
 namespace crmProject.Dtos;
 
-public class ClientDto
+public readonly struct ClientDto
 {
-    public string Name { get; init; } =string.Empty;
-    public string Surname { get; init; } =string.Empty;
-    public string Patronymic { get; init; } =string.Empty;
-    public string Age { get; init; } =string.Empty;
-    public string PassportNumber { get; init; } =string.Empty;
-    public string Gender { get; init; } =string.Empty;
+    public string Name { get; init; }
+    public string Surname { get; init; }
+    public string Patronymic { get; init; }
+    public string Age { get; init; }
+    public string PassportNumber { get; init; }
+    public string Gender { get; init; }
 }
