@@ -1,15 +1,15 @@
 ﻿using crmProject.Dtos;
 using crmProject.Services;
 
-Console.WriteLine("Выбериите действие: Создать клиента или Создать заказ");
+Console.WriteLine("Выбериите действие: Создать клиента (1) или Создать заказ (2)");
 string command = Console.ReadLine();
 
 switch (command)
 {
-    case "Создать клиента":
+    case "1":
         CreateClient();
         break;
-    case "Создать заказ":
+    case "2":
         CreateOrder();
         break;
     default:
@@ -80,7 +80,6 @@ void CreateOrder()
 
     if (!ValidateOrder(orderDto)) return;
 
-
     OrderService.CreateOrder(orderDto);
 }
 
@@ -93,9 +92,6 @@ bool ValidateClient(ClientDto clientDto)
 
     if (clientDto.Surname is { Length: 0 })
         errors.Add("Surname field is required");
-
-    if (clientDto.Patronymic is { Length: 0 })
-        errors.Add("Patronymic field is required");
 
     bool isAgeCorrect = ushort.TryParse(clientDto.Age, out ushort age);
     if (!isAgeCorrect)
@@ -129,14 +125,8 @@ bool ValidateOrder(OrderDto orderDto)
     if (!isPriceCorrect)
         errors.Add("Введите правильное значение для поля цена");
 
-    if (orderDto.Date is { Length: 0 })
-        errors.Add("Заполните дату для вашего заказа");
-
     if (orderDto.DeliveryType != "express" && orderDto.DeliveryType != "standard" && orderDto.DeliveryType != "free")
         errors.Add("Выберите правильный тип доставки");
-
-    if (orderDto.DeliveryAddress is { Length: 0 })
-        errors.Add("Заполните адрес доставки для вашего заказа");
 
     if (errors is not { Count: > 0 }) return true;
     foreach (string error in errors)
